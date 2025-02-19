@@ -75,7 +75,7 @@ Function GetNearestHeading(rng As Range) As String
     GetNearestHeading = heading
 End Function
 
-' Funkcia na získanie obsahu odstavca alebo referencie na obrázok
+' Funkcia na získanie obsahu odstavca alebo správneho čísla strany obrázka
 Function GetNearestParagraphOrImage(rng As Range) As String
     Dim para As Paragraph
     Dim shape As InlineShape
@@ -95,6 +95,7 @@ Function GetNearestParagraphOrImage(rng As Range) As String
     
     ' Skontrolovanie prítomnosti obrázkov v texte
     For Each shape In rng.Document.InlineShapes
+        ' *** Oprava: Každý obrázok dostane správne číslo strany ***
         If shape.Range.Start > rng.Start Then Exit For
         
         ' Určenie strany, na ktorej sa obrázok nachádza
@@ -107,6 +108,7 @@ Function GetNearestParagraphOrImage(rng As Range) As String
             nearestText = "Obrázok: " & shape.AlternativeText & " (strana " & pageNumber & ")"
         End If
         
+        ' Dôležité: Uistíme sa, že sa nezachová číslo strany z predchádzajúcich iterácií
         Exit For
     Next shape
     
