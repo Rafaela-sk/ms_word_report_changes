@@ -1,6 +1,6 @@
 # **🇸🇰 Slovenská-verzia**
 
-## 🏴 English version below 🇸🇰 / 🇬🇧 **[Switch to English](#english-version)**
+## 🏴 English version below 🇸🇰 / 🇬🇧 **[Switch to English](#-english-version)**
 
 Makro **ExportToExcelUltraFast** exportuje všetky **sledované zmeny** a **komentáre vrátane odpovedí** z dokumentu Word do tabuľky v Exceli.  
 Nová verzia automaticky opravuje Parent Comment ID podľa kapitoly a odstavca/obrázka.
