@@ -21,7 +21,9 @@ Nová verzia automaticky opravuje Parent Comment ID podľa kapitoly a odstavca/o
 
 - 🔥 Automatická korekcia **Parent Comment ID** aj pri veľkých dokumentoch
 - 🚀 **Ultra-fast** režim (aj pri 1000+ komentároch)
-- 🛠 Nastaviteľný parameter spätného hľadania `MaxBackwardSearch`
+- 🛠 Nastaviteľné správanie pomocou parametrov v kóde
+- 📈 Priebežný stav spracovania zobrazený v stavovom riadku Wordu
+- 🛡 Excel je počas spracovania skrytý – otvorí sa až po ukončení
 - 💾 Predvolený názov Excel súboru `Exported_Changes_YYYYMMDD_HHMM.xlsx`
 - 🗂 Dvojjazyčné komentáre v kóde (🇸🇰 / 🇬🇧)
 
@@ -38,6 +40,24 @@ Nová verzia automaticky opravuje Parent Comment ID podľa kapitoly a odstavca/o
 
 ---
 
+## **Nastavenie parametrov v kóde / Macro parameters**
+
+| Parameter | Predvolená hodnota | Popis 🇸🇰 | Description 🇬🇧 |
+|:----------|:--------------------|:---------|:---------------|
+| `FastMode` | `True` | Ak `True`, čísla strán sa nevypisujú pre rýchlejší export. Ak `False`, dopĺňajú sa aj čísla strán. | If `True`, page numbers are not exported (faster). If `False`, page numbers are included. |
+| `StatusUpdateFrequency` | `500` | Počet položiek medzi aktualizáciami stavového riadku. | How many items between status bar updates. |
+| `MaxBackwardSearch` | `50` | Maximálny počet riadkov pri spätnom hľadaní Parent Comment ID. | Maximum number of rows to search backwards for Parent Comment ID. |
+
+---
+
+## **Priebežný stav spracovania / Progress tracking**
+
+- ✅ Počas spracovania dokumentu sa priebežne aktualizuje **stavový riadok Wordu** s počtom spracovaných zmien a komentárov.
+- ✅ **Excel sa nezobrazuje** počas spracovania – pre vyššiu rýchlosť exportu.
+- ✅ **Excel sa otvorí automaticky** po dokončení exportu dát.
+
+---
+
 ## **[🇬🇧 Switch to English](#english-version)**
 
 ---
@@ -47,7 +67,7 @@ Nová verzia automaticky opravuje Parent Comment ID podľa kapitoly a odstavca/o
 ## 🇬🇧 **[Prepnúť na slovenčinu](#ms_word_report_changes--verzia-20)**
 
 The **ExportToExcelUltraFast** macro exports all **tracked changes** and **comments including replies** from a Word document into an Excel table.  
-The new version automatically corrects Parent Comment IDs based on the chapter and paragraph/image context.
+The new version automatically corrects Parent Comment IDs based on chapter and paragraph/image context.
 
 ---
 
@@ -65,18 +85,30 @@ The new version automatically corrects Parent Comment IDs based on the chapter a
 
 - 🔥 Automatic correction of **Parent Comment IDs** even in large documents
 - 🚀 **Ultra-fast** processing (even with 1000+ comments)
-- 🛠 Configurable backward search via `MaxBackwardSearch`
+- 🛠 Behavior customizable through macro parameters
+- 📈 Live progress shown in Word's status bar
+- 🛡 Excel hidden during processing – shown after export
 - 💾 Default Excel filename `Exported_Changes_YYYYMMDD_HHMM.xlsx`
 - 🗂 Dual-language (🇸🇰 / 🇬🇧) code comments
 
 ---
 
-## **How to run the macro?**
+## **Macro parameters (in code)**
 
-1. **Open Word** and press `ALT + F11`.
-2. **Insert a new module** (Insert > Module).
-3. **Import or paste** the code from `ExportToExcelUltraFast.bas`.
-4. **Run the macro `ExportToExcelUltraFast`**.
+| Parameter | Default Value | Description |
+|:----------|:---------------|:------------|
+| `FastMode` | `True` | If `True`, page numbers are skipped for faster processing. |
+| `StatusUpdateFrequency` | `500` | How many items between status bar updates. |
+| `MaxBackwardSearch` | `50` | Maximum number of rows to search backwards to find Parent Comment ID. |
 
-✅ The resulting Excel file will be saved automatically.
+---
 
+## **Progress tracking**
+
+- ✅ Word's status bar shows **number of processed changes and comments** live during processing.
+- ✅ **Excel remains hidden** during processing – boosting speed.
+- ✅ **Excel opens automatically** after data export is finished.
+
+---
+
+✅ **Thank you for using version 2.0!**
