@@ -1,4 +1,4 @@
-# 🇸🇰 ms_word_report_changes – Verzia 2.0
+#ms_word_report_changes
 
 ## 🏴 English version below 🇸🇰 / 🇬🇧 **[Switch to English](#english-version)**
 
@@ -62,9 +62,9 @@ Nová verzia automaticky opravuje Parent Comment ID podľa kapitoly a odstavca/o
 
 ---
 
-# 🇬🇧 English version
+#english-version
 
-## 🇬🇧 **[Prepnúť na slovenčinu](#ms_word_report_changes--verzia-20)**
+## 🇸🇰 **[Prepnúť na slovenčinu](#ms_word_report_changes)**
 
 The **ExportToExcelUltraFast** macro exports all **tracked changes** and **comments including replies** from a Word document into an Excel table.  
 The new version automatically corrects Parent Comment IDs based on chapter and paragraph/image context.
@@ -112,3 +112,5 @@ The new version automatically corrects Parent Comment IDs based on chapter and p
 ---
 
 ✅ **Thank you for using version 2.0!**
+
+## 🇸🇰 **[Prepnúť na slovenčinu](#ms_word_report_changes)**
