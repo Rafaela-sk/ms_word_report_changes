@@ -1,4 +1,4 @@
-# ms_word_report_changes
+# Slovenská verzia
 
 ## 🏴 English version below 🇸🇰 / 🇬🇧 [Switch to English](#english-version)
 
@@ -69,13 +69,9 @@ Makro na export **sledovaných zmien** a **komentárov** z dokumentov MS Word do
 
 ---
 
-## 🇬🇧 [Switch to English version](#english-version)
-
----
-
 # English version
 
-## 🇸🇰 **[Prepnúť na slovenčinu](##ms_word_report_changes)**
+## 🇸🇰 **[Prepnúť na slovenčinu](#Slovenská-verzia)**
 
 This macro exports **tracked changes** and **comments** from MS Word documents into a structured Excel table. Output includes author, date, type, content, chapter, paragraph/image, page number, comment ID, and parent comment references.
 
@@ -144,4 +140,4 @@ This macro exports **tracked changes** and **comments** from MS Word documents i
 
 ---
 
-## 🇸🇰 **[Prepnúť na slovenčinu](##ms_word_report_changes)**
+## 🇸🇰 **[Prepnúť na slovenčinu](#Slovenská-verzia)**
