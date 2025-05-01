@@ -1,6 +1,30 @@
+' 🔵 Code to enable minimalization of VBA window / Kód na minimalizáciu okna VBA
+#If VBA7 Then
+    Private Declare PtrSafe Function FindWindowA Lib "user32" (ByVal lpClassName As String, ByVal lpWindowName As String) As LongPtr
+    Private Declare PtrSafe Function ShowWindow Lib "user32" (ByVal hwnd As LongPtr, ByVal nCmdShow As Long) As Long
+#Else
+    Private Declare Function FindWindowA Lib "user32" (ByVal lpClassName As String, ByVal lpWindowName As String) As Long
+    Private Declare Function ShowWindow Lib "user32" (ByVal hwnd As Long, ByVal nCmdShow As Long) As Long
+#End If
+
+Const SW_MINIMIZE = 6
+Const SW_HIDE = 0
+Const SW_RESTORE = 9
+
+Sub MinimizeVBE()
+    Dim hWndVBE As LongPtr
+    hWndVBE = FindWindowA("wndclass_desked_gsk", vbNullString)
+    If hWndVBE <> 0 Then
+        ShowWindow hWndVBE, SW_MINIMIZE
+    End If
+End Sub
+
 Sub ExportToExcelUltraFast()
     ' 🛠 Export zmien a komentárov z Wordu do Excelu s korekciou Parent ID
     ' 🛠 Export changes and comments from Word to Excel with Parent ID correction
+
+    ' Minimize VBA window upon start of the macro / Minimalizácia okna VBA pri štarte makra
+    Call MinimizeVBE
 
     ' 🔵 PARAMETRE NASTAVENIA / PARAMETERS AND SETTINGS
     Const FastMode As Boolean = False            ' True = Fast mode (no page number) / Rýchly režim (bez čísla strany)
@@ -47,7 +71,8 @@ Sub ExportToExcelUltraFast()
 
     ' 🔵 OTVORENIE EXCELU / OPENING EXCEL
     Set xlApp = CreateObject("Excel.Application")
-    xlApp.Visible = False
+    xlApp.Visible = True              ' Keep Excel widow visible / Pocheať okno Excelu viditeľné
+    xlApp.WindowState = -4140         ' Minimise the Excel window / Minimalizovať okno Excelu
     Set xlBook = xlApp.Workbooks.Add
     Set xlSheet = xlBook.Sheets(1)
 
