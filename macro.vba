@@ -42,6 +42,7 @@ Sub ExportToExcelUltraFast()
     Dim totalItems As Long
     Dim startTime As Double
     Dim commentMap As Object
+    Dim pageMap As Object
     Dim currentCommentID As Long
     Dim filePath As String
     Dim fileName As String
@@ -68,6 +69,7 @@ Sub ExportToExcelUltraFast()
 
     startTime = Timer
     Set commentMap = CreateObject("Scripting.Dictionary")
+    Set pageMap = CreateObject("Scripting.Dictionary")
 
     ' 🔵 OTVORENIE EXCELU / OPENING EXCEL
     Set xlApp = CreateObject("Excel.Application")
@@ -97,7 +99,13 @@ Sub ExportToExcelUltraFast()
     ' 🔵 SPRACOVANIE ZMIEN / PROCESSING REVISIONS
     For Each rev In doc.Revisions
         data(rowCount, 1) = rev.Author
-        data(rowCount, 2) = rev.Date
+        
+        If IsDate(rev.Date) Then
+            data(rowCount, 2) = Format(rev.Date, "yyyy-mm-dd hh:nn")
+        Else
+            data(rowCount, 2) = CStr(rev.Date)
+        End If
+
         data(rowCount, 3) = "Change / Zmena"
         data(rowCount, 4) = CleanText(rev.Range.Text)
         data(rowCount, 5) = GetNearestHeading(rev.Range)
@@ -120,14 +128,36 @@ Sub ExportToExcelUltraFast()
     ' 🔵 SPRACOVANIE KOMENTÁROV A ODPOVEDÍ / PROCESSING COMMENTS AND REPLIES
     For Each cmt In doc.Comments
         data(rowCount, 1) = cmt.Author
-        data(rowCount, 2) = cmt.Date
+
+        If IsDate(cmt.Date) Then
+            data(rowCount, 2) = Format(cmt.Date, "yyyy-mm-dd hh:nn")
+        Else
+            data(rowCount, 2) = CStr(cmt.Date)
+        End If
 
         If cmt.Ancestor Is Nothing Then
             data(rowCount, 3) = "Comment / Komentár"
             data(rowCount, 9) = ""
+            If FastMode Then
+                data(rowCount, 7) = ""
+            Else
+                pageNum = cmt.Scope.Information(wdActiveEndPageNumber)
+                data(rowCount, 7) = pageNum
+                pageMap(currentCommentID) = pageNum
+            End If
         Else
             data(rowCount, 3) = "Reply / Reakcia"
             data(rowCount, 9) = "Unknown"
+            If FastMode Then
+                data(rowCount, 7) = ""
+            Else
+                ancestorID = commentMap(cmt.Ancestor)
+                If pageMap.exists(ancestorID) Then
+                    data(rowCount, 7) = pageMap(ancestorID)
+                Else
+                    data(rowCount, 7) = cmt.Scope.Information(wdActiveEndPageNumber)
+                End If
+            End If
         End If
 
         data(rowCount, 4) = CleanText(cmt.Range.Text)
@@ -170,8 +200,17 @@ Sub ExportToExcelUltraFast()
         End If
     Next i
 
-    ' 🔵 ZAPIS DÁT DO EXCELU / EXPORTING DATA TO EXCEL
-    xlSheet.Range("A2").Resize(UBound(data), UBound(data, 2)).Value = data
+    ' 🔵 ZAPIS DÁT DO EXCELU / EXPORTING DATA TO EXCEL    
+    ' Pamatovo menej narocna operacia zapisu do Excelu / Less memory demanding Excel write operation
+    Dim colCount As Long
+    rowCount = UBound(data, 1)
+    colCount = UBound(data, 2)
+
+    For i = 1 To rowCount
+        For j = 1 To colCount
+            xlSheet.Cells(i + 1, j).Value = data(i, j) ' i + 1 kvôli hlavièke            
+        Next j
+    Next i
     xlSheet.Columns.AutoFit
 
     ' 🔵 ULOŽENIE SÚBORU / SAVING THE FILE
